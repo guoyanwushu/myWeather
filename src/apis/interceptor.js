@@ -2,7 +2,7 @@ import axios from 'axios'
 /* 作拦截处理 */
 axios.interceptors.request.use(function (config) {
   if (!config.params.key) {
-    config.params.key = '67354c81c4f34e31b2384069dac3d3d9'
+    config.params.key = process.env.VUE_APP_HFKEY
   }
   return config
 }, function (error) {

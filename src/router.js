@@ -1,14 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import CityInfo from './components/city-info'
+import Index from './views/index'
 Vue.use(Router)
-
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'cityinfo',
-      component: CityInfo
+      component: Index
     },
     {
       path: '/about',

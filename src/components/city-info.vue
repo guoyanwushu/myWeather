@@ -29,8 +29,8 @@
   </div>
 </template>
 <script>
-import {getWeatherNow} from "../apis";
-
+import { getWeatherNow } from '../apis';
+import SearchInput from '../components/searchInput'
 export default {
   data () {
     return {
@@ -39,17 +39,20 @@ export default {
       time: '',
       tmp: '',
       cond_txt: '',
-      wind_deg: "",
-      wind_dir: "",
-      wind_sc: "",
-      wind_spd: "",
+      wind_deg: '',
+      wind_dir: '',
+      wind_sc: '',
+      wind_spd: '',
       pcpn: 0
     }
   },
   computed: {
     rainInfo () {
-      return this.pcpn == 0?'未来两小时无降水':`未来两小时降雨量${this.pcpn}ml`
+      return this.pcpn === 0 ? '未来两小时无降水' : `未来两小时降雨量${this.pcpn}ml`
     }
+  },
+  components: {
+    SearchInput
   },
   mounted () {
     this.getWeatherInfo();
@@ -57,8 +60,8 @@ export default {
   methods: {
     getWeatherInfo () {
       this.isLoading = true;
-      getWeatherNow(this.city).then( (res)=> {
-        setTimeout( ()=> {
+      getWeatherNow(this.city).then(res => {
+        setTimeout(() => {
           this.isLoading = false;
         }, 1000)
         this.time = res.HeWeather6[0].update.loc.match(/^[^\s]+\s+([^\s]+)$/)[1] + ' 更新'
@@ -77,8 +80,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
-  @import "../styles/common";
+<style lang="less" scoped>
   .container {
     background-color: #fff;
     border-radius: 10px 10px 0 0;
@@ -123,6 +125,7 @@ export default {
     }
     i {
       color: #ccc;
+      display: inline-block;
     }
   }
   .loading {

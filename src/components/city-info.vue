@@ -24,13 +24,15 @@
         </p>
       </div>
     </section>
-    <p class="weather-desc"></p>
-    <section></section>
+    <p class="life-desc">{{lifeDesc}}</p>
+    <section id="line-chart" ref="hourly"></section>
   </div>
 </template>
 <script>
-import { getWeatherNow } from '../apis';
-import SearchInput from '../components/searchInput'
+import { getWeatherDetail, getRainInfo} from '../apis';
+import {hourlyLine} from "../echarts";
+import echarts from 'echarts'
+import SearchInput from './SearchInput'
 export default {
   data () {
     return {
@@ -43,12 +45,13 @@ export default {
       wind_dir: '',
       wind_sc: '',
       wind_spd: '',
-      pcpn: 0
+      pcpn: 0,
+      lifeDesc: '',
     }
   },
   computed: {
     rainInfo () {
-      return this.pcpn === 0 ? '未来两小时无降水' : `未来两小时降雨量${this.pcpn}ml`
+      return this.pcpn == 0?'未来两小时无降水':`未来两小时降雨量${this.pcpn}ml`
     }
   },
   components: {
@@ -56,11 +59,15 @@ export default {
   },
   mounted () {
     this.getWeatherInfo();
+    this.getLifeInfo('comf');
+    // this.getRainInfo();
+    this.getHourlyWeather();
   },
   methods: {
+    /* 获取天气信息 */
     getWeatherInfo () {
       this.isLoading = true;
-      getWeatherNow(this.city).then(res => {
+      getWeatherDetail(this.city).then(res => {
         setTimeout(() => {
           this.isLoading = false;
         }, 1000)
@@ -73,6 +80,36 @@ export default {
         this.wind_sc = now.wind_sc
       })
     },
+    /* 获取生活指数信息 */
+    getLifeInfo (type) {
+      getWeatherDetail(this.city, 'lifestyle').then(res => {
+        const liftObject = res.HeWeather6[0].lifestyle;
+        liftObject.some((lifeItem) => {
+          if (lifeItem.type === type) {
+            console.log(this);
+            this.lifeDesc = lifeItem.txt;
+            return true
+          }
+        })
+      })
+    },
+    /* 这个接口调不了 */
+    getRainInfo () {
+      getRainInfo(this.city).then(res => {
+        this.rainInfo = res.HeWeather6[0]
+      })
+    },
+    /* 获取24小时预报 */
+    getHourlyWeather () {
+      getWeatherDetail(this.city, 'hourly').then(res => {
+        const hourly = res.HeWeather6[0].hourly;
+        const hours = hourly.map(item => {
+          return item.time.match(/^[^\s]+\s+([^\s]+)$/)[1]
+        });
+        const tmps = hourly.map(item => item.tmp);
+        echarts.init(this.$refs.hourly, '', {render: 'svg'}).setOption(hourlyLine(hours, tmps))
+      })
+    },
     careCity () {
     },
     unpdateWeatherInfo () {
@@ -82,7 +119,7 @@ export default {
 </script>
 <style lang="less" scoped>
   .container {
-    background-color: #fff;
+    background-color: #F7F7F9;
     border-radius: 10px 10px 0 0;
     padding: 5px 0 0;
     position: relative;
@@ -166,5 +203,15 @@ export default {
         border-radius: 50%;
       }
     }
+  }
+  .life-desc {
+    padding: 8px 12px;
+    background-color: #E9E9EF;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+  #line-chart {
+    height: 200px;
+    border-bottom: 8px solid #E9E9EF;
   }
 </style>

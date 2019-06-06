@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import SearchInput from '../components/searchInput'
+import SearchInput from '../components/SearchInput'
 import CityInfo from '../components/city-info'
 export default {
   components: {

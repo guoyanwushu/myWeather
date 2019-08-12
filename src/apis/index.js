@@ -15,3 +15,20 @@ export function getRainInfo (location) {
     }
   })
 }
+/* 城市搜索 */
+export function citySearch (location) {
+  return axios.get(`https://search.heweather.net/find`, {
+    params: {
+      location,
+      group: 'cn'
+    }
+  })
+}
+/* 热门城市搜索 */
+export function hotCitySearch () {
+  return axios.get('https://search.heweather.net/top', {
+    params: {
+      group: 'cn'
+    }
+  })
+}

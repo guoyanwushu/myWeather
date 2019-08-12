@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './views/index'
+import Search from './views/search'
+
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -8,6 +10,11 @@ export default new Router({
       path: '/',
       name: 'cityinfo',
       component: Index
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: Search
     },
     {
       path: '/about',

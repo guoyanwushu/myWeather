@@ -7,7 +7,7 @@
       </div>
     </header>
     <ul >
-      <li class="flex flex-middle" v-for="city in results" :key="city.id">
+      <li class="flex flex-middle" v-for="city in results" :key="city.id" @click="turnToInfo(city.location)">
         <span class="location">{{city.location}}</span>
         <span class="tmp">{{city.tmp}}</span>
       </li>
@@ -44,6 +44,9 @@
       })
     },
     methods: {
+      turnToInfo (city) {
+        this.$router.push({path: '/', query: {city}})
+      },
       getHotCity() {
         if (res.HeWeather6[0].status == 'ok') {
           this.results = res.HeWeather6[0].basic.reduce((results, item)=>{
@@ -92,9 +95,9 @@
 </script>
 <style lang="less" scoped>
   .container {
-    position: fixed;
-    top: 10px;
+    height: 100%;
     width: 100%;
+    padding-top: 10px;
   }
   #input-box {
     flex: 1;

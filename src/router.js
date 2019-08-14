@@ -9,12 +9,18 @@ export default new Router({
     {
       path: '/',
       name: 'cityinfo',
+      meta: {
+        keepAlive: true
+      },
       component: Index
     },
     {
       path: '/search',
       name: 'search',
-      component: Search
+      component: Search,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/about',

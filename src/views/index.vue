@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="container">
     <header  class="flex-middle">
-
       <div id="input-box" class="flex-middle">
         <i class="iconfont icon-sousuo"></i><input type="text" placeholder="搜索城市或者查看关注城市" readonly @click="$router.push('search')">
       </div>
@@ -19,8 +18,14 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+  .container {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
   header {
     padding: 10px;
+    background-color: #666;
   }
   #input-box {
     flex: 1;

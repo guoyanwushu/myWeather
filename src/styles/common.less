@@ -3,6 +3,10 @@
   right: 0;
   box-sizing: border-box;
 }
+html, body {
+  width: 100%;
+  height: 100%;
+}
 a {
   color: #000;
   text-decoration: none;
@@ -22,3 +26,29 @@ a,button {
   justify-content: space-between;
   align-items: center;
 }
+
+.slide-leave-active {
+  transition: all 0.5s ease;
+}
+.slide-leave-to {
+  transform: translate3d(-100%, 0, 0);
+}
+.slide-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-enter {
+  transform: translate3d(100%,0,0);
+}
+.xslide-leave-active {
+  transition: all 0.5s ease;
+}
+.xslide-leave-to {
+  transform: translate(100%, 0);
+}
+.xslide-enter-active {
+  transition: all 0.5s ease;
+}
+.xslide-enter {
+  transform: translate(-100%, 0);
+}
+

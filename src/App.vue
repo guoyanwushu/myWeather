@@ -1,10 +1,34 @@
 <template>
   <div id="app">
-    <transition>
-      <router-view/>
+    <transition :name="transitionName">
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive == true"/>
+      </keep-alive>
+    </transition>
+    <transition :name="transitionName" mode="out-in">
+      <router-view v-if="$route.meta.keepAlive != true"/>
     </transition>
   </div>
 </template>
+<script>
+  export default {
+    data () {
+      return {
+        transitionName: ''
+      }
+    },
+    watch: {
+      '$route': function (to, from) {
+        if (to.name == 'search' && from.name == 'cityinfo') {
+          this.transitionName = 'slide'
+        }
+        if (to.name == 'cityinfo' && from.name == 'search') {
+          this.transitionName = 'xslide'
+        }
+      }
+    }
+  }
+</script>
 <style lang="less">
 @import "styles/common";
 #app {
@@ -12,7 +36,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  background: #666;
+  height: 100%;
 }
 #nav {
   padding: 30px;

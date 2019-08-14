@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <header class="flex-middle-between">
+    <header class="flex-middle-between search">
       <div class="city flex-middle">
         <span>{{city}}</span>
         <a href="#" @click="careCity"><i class="iconfont icon-xihuan"></i> </a>
@@ -58,13 +58,21 @@ export default {
     SearchInput
   },
   mounted () {
-    this.getWeatherInfo();
-    this.getLifeInfo('comf');
-    // this.getRainInfo();
-    this.getHourlyWeather();
+    this.init();
+  },
+  activated () {
+    this.city = this.$route.query.city;
+    this.init();
   },
   methods: {
-    /* 获取天气信息 */
+    init () {
+      this.getWeatherInfo();
+      this.getLifeInfo('comf');
+      this.getHourlyWeather();
+    },
+    /* 获取天气信息
+     *  这里不能写死，第一次进来由定位取到当前吃屎工会是
+     * */
     getWeatherInfo () {
       this.isLoading = true;
       getWeatherDetail(this.city).then(res => {

@@ -7,7 +7,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/cityinfo',
       name: 'cityinfo',
       meta: {
         keepAlive: true

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header  class="flex-middle">
-      <a href="#" class="back" @click="$router.push('/')"><i class="iconfont icon-jiantou-copy"></i></a>
+      <a href="#" class="back" @click="$router.push({path: '/cityinfo'})"><i class="iconfont icon-jiantou-copy"></i></a>
       <div id="input-box" class="flex-middle">
         <i class="iconfont icon-sousuo"></i><input type="text" placeholder="搜索城市或者查看关注城市" v-model="city">
       </div>
@@ -9,14 +9,13 @@
     <ul >
       <li class="flex flex-middle" v-for="city in results" :key="city.id" @click="turnToInfo(city.location)">
         <span class="location">{{city.location}}</span>
-        <span class="tmp">{{city.tmp}}</span>
+        <span class="tmp">{{city.tmp}}°</span>
       </li>
     </ul>
 
   </div>
 </template>
 <script>
-  // TODO: 1.默认展示热门城市及对应的温度， 根据搜索的字动态展示搜索结果
   import {citySearch, getWeatherDetail, hotCitySearch} from "../apis";
 
   export default {
@@ -45,7 +44,7 @@
     },
     methods: {
       turnToInfo (city) {
-        this.$router.push({path: '/', query: {city}})
+        this.$router.push({path: '/cityinfo', query: {city}})
       },
       getHotCity() {
         if (res.HeWeather6[0].status == 'ok') {

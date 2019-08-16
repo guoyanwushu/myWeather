@@ -26,6 +26,7 @@
     </section>
     <p class="life-desc">{{lifeDesc}}</p>
     <section id="line-chart" ref="hourly"></section>
+    <daily-weather :city="city"></daily-weather>
   </div>
 </template>
 <script>
@@ -33,6 +34,7 @@ import { getWeatherDetail, getRainInfo} from '../apis';
 import {hourlyLine} from "../echarts";
 import echarts from 'echarts'
 import SearchInput from './SearchInput'
+import DailyWeather from  './dailyWeather'
 export default {
   data () {
     return {
@@ -46,6 +48,7 @@ export default {
       wind_sc: '',
       wind_spd: '',
       pcpn: 0,
+      daily: [],
       lifeDesc: '',
     }
   },
@@ -55,13 +58,14 @@ export default {
     }
   },
   components: {
-    SearchInput
+    SearchInput,
+    DailyWeather
   },
   mounted () {
     this.init();
   },
   activated () {
-    this.city = this.$route.query.city;
+    this.$route.query.city?this.city = this.$route.query.city:'';
     this.init();
   },
   methods: {
@@ -119,8 +123,6 @@ export default {
       })
     },
     careCity () {
-    },
-    unpdateWeatherInfo () {
     }
   }
 }

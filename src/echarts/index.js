@@ -1,4 +1,4 @@
-export function hourlyLine (xdata, ydata) {
+export function hourlyLine(xdata, ydata) {
   return {
     title: {
       show: true,
@@ -26,7 +26,7 @@ export function hourlyLine (xdata, ydata) {
     },
     yAxis: {
       type: 'value',
-      min: '18',
+      min: '0',
       max: 'dataMax',
       minInterval: 100,
       splitLine: {
@@ -73,6 +73,50 @@ export function hourlyLine (xdata, ydata) {
           }],
           global: false // 缺省为 false
         }
+      }
+    }]
+  };
+}
+
+export function dailyLine (xData, yData) {
+  return {
+    grid: {
+      left: 0,
+      bottom: 0,
+      width: '100%',
+      height: '80%'
+    },
+    xAxis: {
+      type: 'category',
+      show: true,
+      position: 'top',
+      axisLabel: {
+        show: true
+      },
+      data: true
+    },
+    yAxis: {
+      type: 'value',
+      show: false,
+      max: '50'
+    },
+    series: [{
+      data: yData,
+      type: 'line',
+      lineStyle: {
+        color: '#F5BF54',
+        width: 3
+      },
+      itemStyle: {
+        color: '#F5BF54'
+      },
+      label: {
+        show: true,
+        fontSize: 14,
+        distance: 8,
+        position: 'top',
+        color: '#000',
+        formatter: '{c}°'
       }
     }]
   };

@@ -6,13 +6,12 @@
         <i class="iconfont icon-sousuo"></i><input type="text" placeholder="搜索城市或者查看关注城市" v-model="city">
       </div>
     </header>
-    <ul >
+    <ul id="cities">
       <li class="flex flex-middle" v-for="city in results" :key="city.id" @click="turnToInfo(city.location)">
         <span class="location">{{city.location}}</span>
         <span class="tmp">{{city.tmp}}°</span>
       </li>
     </ul>
-
   </div>
 </template>
 <script>
@@ -96,7 +95,14 @@
   .container {
     height: 100%;
     width: 100%;
-    padding-top: 10px;
+  }
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 44px;
+    padding: 12px 0px;
   }
   #input-box {
     flex: 1;
@@ -126,7 +132,12 @@
     }
   }
   ul {
-    padding-top: 15px;
+    position: absolute;
+    top: 44px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    overflow-y: scroll;
     padding-left: 0;
     li {
       padding: 15px;
